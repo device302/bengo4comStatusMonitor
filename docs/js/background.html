@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>background.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco_custom.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="background.html">
+                background.js
+              </a>
+            
+              
+              <a class="source" href="options.html">
+                options.js
+              </a>
+            
+              
+              <a class="source" href="popup.html">
+                popup.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>background.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Version: 1.0<br>Last Up Date: 2013/10/22<br>Author: device302@gmail.com</p>
+<h2>usage</h2>
+<h3>require</h3>
+<ul>
+<li>zepto.js ( <a href="http://zeptojs.com">http://zeptojs.com</a> )</li>
+</ul>
+<h2>variable declaration</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> lc = localStorage                    <span class="comment">// ローカルストレージ</span>
+  , timerID                              <span class="comment">// 更新タイマーハンドラ</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h3>defaults settings propertys</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  , defaultProps = { url: <span class="string">''</span>
+    , badgeType : <span class="string">'numLawyerAnswerRate'</span>　<span class="comment">// icon badgeに表示するデータのID</span>
+    , timerMs   : <span class="number">300000</span>　　　　　　　　　　<span class="comment">// 何分おきに更新するか(ミリ秒)</span>
+    , update    : <span class="string">''</span>  　　　　　　　　　　　<span class="comment">// 更新時間を保存</span>
+    , status    : <span class="string">'installed'</span>           <span class="comment">// 状況: ここを更新してlcの更新イベントを投げる</span>
+    , data      : <span class="string">''</span>                    <span class="comment">// 方喰城のJSONデータ丸ごと保存</span>
+    , dispLevel: <span class="string">'{'</span>+                   <span class="comment">// 表示用のデータ：ここにid入ってないのはJSONにあっても表示されないよ</span>
+        <span class="string">'"titleLaw": [1, "%e5%bc%81%e8%ad%b7%e5%a3%ab%e9%96%a2%e9%80%a3%e3%82%b9%e3%83%86%e3%83%bc%e3%82%bf%e3%82%b9"]'</span>+
+      <span class="string">', "numLawyer": [2, "%e4%ba%ba"]'</span>+                        <span class="comment">//'登録弁護士数'</span>
+      <span class="string">', "numBillingLawyer":  [2, "%e4%ba%ba"]'</span>+                <span class="comment">//'有料弁護士数'</span>
+      <span class="string">', "numSearchContact":  [2, "%e4%bb%b6"]'</span>+                <span class="comment">//'プロフ問い合せ数'</span>
+      <span class="string">', "titleUser": [1, "%e4%b8%80%e8%88%ac%e3%83%a6%e3%83%bc%e3%82%b6%e3%83%bc%e9%96%a2%e9%80%a3%e3%82%b9%e3%83%86%e3%83%bc%e3%82%bf%e3%82%b9"]'</span>+
+      <span class="string">', "numCitizen":  [2, "%e4%ba%ba"]'</span>+                      <span class="comment">//'登録ユーザー数'</span>
+      <span class="string">', "numBillingCitizen":  [2, "%e4%ba%ba"]'</span>+               <span class="comment">//'有料ユーザー数'</span>
+      <span class="string">', "numBillingCitizenCurrentMonth":  [3, "%e4%ba%ba"]'</span>+   <span class="comment">//'今月有料ユーザー登録数'</span>
+      <span class="string">', "numUnBillingCitizenCurrentMonth":  [3, "%e4%ba%ba"]'</span>+ <span class="comment">//'今月有料ユーザー退会数'</span>
+      <span class="string">', "titleMinpo": [1, "%e3%81%bf%e3%82%93%e6%b3%95%e9%96%a2%e9%80%a3%e3%82%b9%e3%83%86%e3%83%bc%e3%82%bf%e3%82%b9"]'</span>+
+      <span class="string">', "numBbsQuestion":  [2, "%e4%bb%b6"]'</span>+                  <span class="comment">//'みん法質問数'</span>
+      <span class="string">', "numBbsAnswer":  [2, "%e4%bb%b6"]'</span>+                    <span class="comment">//'みん法回答数'</span>
+      <span class="string">', "numLawyerAnswerRate":  [2, "%25"]'</span>+                   <span class="comment">//'みん法弁護士回答率'</span>
+    <span class="string">'}'</span>
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2>utility functions</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h3>zeroFill() - 数字の頭に&#39;0&#39;をつける</h3>
+<ul>
+<li>@param {Number or String} value 頭に&#39;0&#39;をつける対象</li>
+<li>@param {Number} digit 桁数</li>
+<li>@return {String} 不正なデータの場合は value をリターン</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="comment">/* test code
+  ------------------------------
+  console.log(zeroFill(1,4));
+  console.log(zeroFill(1,'4'));
+  console.log(zeroFill(1,[]));
+  console.log(zeroFill(11,2));
+  console.log(zeroFill(11,1));
+  */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">zeroFill</span><span class="params">(value, digit)</span>{</span>
+  <span class="keyword">var</span> tmp = <span class="string">''</span>;
+  <span class="keyword">if</span>(<span class="keyword">typeof</span> digit === <span class="string">'string'</span>){
+    digit = parseInt(digit, <span class="number">10</span>);
+  }
+  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> digit !== <span class="string">'number'</span>){
+    <span class="keyword">return</span> value;
+  }
+  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; digit; i++){
+    tmp += <span class="string">'0'</span>;
+  }
+  <span class="keyword">return</span> (tmp + value).slice(<span class="string">'-'</span>+digit);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h3>dateFormat() - 日付フォーマット変換</h3>
+<ul>
+<li>@param {String} _v 元になる日付データ</li>
+<li>@return {String} YYYY/MM/DD h:m:s</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/* test code
+------------------------------
+- 後で
+*/</span>
+<span class="function"><span class="keyword">function</span> <span class="title">dateFormat</span><span class="params">(_v)</span>{</span>
+  <span class="keyword">var</span> date = <span class="keyword">new</span> Date(_v)
+    , Y = date.getFullYear()
+    , M = zeroFill(date.getMonth() + <span class="number">1</span>, <span class="number">2</span>)
+    , D = zeroFill(date.getDate(), <span class="number">2</span>)
+    , h = zeroFill(date.getHours(), <span class="number">2</span>)
+    , m = zeroFill(date.getMinutes(), <span class="number">2</span>)
+    , s = zeroFill(date.getSeconds(), <span class="number">2</span>);
+
+  <span class="keyword">return</span> Y + <span class="string">'/'</span> + M + <span class="string">'/'</span> + D + <span class="string">' '</span> + h + <span class="string">':'</span> + m + <span class="string">':'</span> + s;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2>functions</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h3>updateBadge() - バッジの数字をアップデートする</h3>
+<ul>
+<li>@param {String} _v 表示するデータ</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">updateBadge</span><span class="params">(_v)</span>{</span>
+  <span class="keyword">var</span> tmp = lc.getItem(<span class="string">'data'</span>)
+    , _tmp<span class="comment">//= JSON.parse(tmp)</span>
+    , bType = lc.getItem(<span class="string">'badgeType'</span>)
+    , num;
+  
+  <span class="keyword">if</span>(tmp !== <span class="string">''</span>){
+    _tmp = JSON.parse(tmp);
+    
+    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> _tmp){
+      <span class="keyword">if</span> (_tmp.hasOwnProperty(key)) {
+        <span class="keyword">if</span>(key === bType){
+          num = _tmp[key][<span class="string">'currentValue'</span>].split(<span class="string">','</span>).join(<span class="string">''</span>);
+          <span class="keyword">break</span>;
+        }
+      }
+    }
+  }<span class="keyword">else</span>{
+    num = _v?_v:<span class="string">'---'</span>;
+  }
+  chrome.browserAction.setBadgeBackgroundColor({color: <span class="string">'#fe6000'</span>});
+  chrome.browserAction.setBadgeText({text: num});
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h3>updateStatus() - lcの更新をして更新イベントFireする</h3>
+<ul>
+<li>@param {String} _v lcの&#39;data&#39;に入れるデータ</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">updateStatus</span><span class="params">(_v)</span>{</span>
+  <span class="keyword">var</span> _date  = <span class="keyword">new</span> Date();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>正常データ時（Ajaxでデータとれた時</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">if</span>(_v !== <span class="string">'offline'</span>){
+    lc.setItem(<span class="string">'data'</span>, JSON.stringify(_v));
+    lc.setItem(<span class="string">'update'</span>, dateFormat(_date));
+    updateBadge();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>オフライン時</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">else</span> {
+    lc.setItem(<span class="string">'status'</span>, <span class="string">'offline:'</span>+dateFormat(_date));
+    updateBadge(<span class="string">'offline'</span>);
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h3>requestURL() - ajax処理</h3>
+<ul>
+<li>@param {String} url 読み込みURL</li>
+<li>@param {function} callback callback関数</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">requestURL</span><span class="params">(url, callback)</span> {</span>
+  $.ajax({
+    type: <span class="string">'GET'</span>,
+    url: url,
+    dataType: <span class="string">'json'</span>,
+    timeout: <span class="number">300</span>,
+    success: <span class="keyword">function</span>(data){
+      callback(data);
+    },
+    error: <span class="keyword">function</span>(){
+      callback(<span class="string">'offline'</span>);
+    }
+  });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h3>requestStatus() - リクエスト処理</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">requestStatus</span><span class="params">()</span> {</span>
+  requestURL(lc.getItem(<span class="string">'url'</span>), updateStatus);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>更新タイマー処理</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">if</span>(timerID){
+    clearTimeout(timerID);
+  }
+  timerID = setTimeout(requestStatus, lc.getItem(<span class="string">'timerMs'</span>));
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h3>init() - 初期処理</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span>{</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h4>インストール直後のみ</h4>
+<p>lcにdefaultPropsのデータをコピーする（extendsだとダメー</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">if</span>(lc.getItem(<span class="string">'update'</span>) === <span class="string">''</span> || lc.getItem(<span class="string">'update'</span>) === <span class="literal">null</span>){
+    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> defaultProps){
+      <span class="keyword">if</span> (defaultProps.hasOwnProperty(key)) {
+        lc.setItem(key, defaultProps[key]);
+      }
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>url 確認して通信するか分岐
+（コンパイル前にURLにデータ入れてたら else に入るね</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">if</span>(lc.getItem(<span class="string">'status'</span>) === <span class="string">'installed'</span>){
+    <span class="keyword">if</span>(lc.getItem(<span class="string">'url'</span>)===<span class="string">''</span>){
+      updateStatus(<span class="string">'offline'</span>);
+      updateBadge(<span class="string">'urlx'</span>);
+    } <span class="keyword">else</span> {
+      requestStatus();
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h4>イベント設置</h4>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(window).on(<span class="string">'storage'</span>, requestStatus);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <h3>$() - 即時関数</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>$(<span class="keyword">function</span>($){</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>lc.clear();</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  init($);
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

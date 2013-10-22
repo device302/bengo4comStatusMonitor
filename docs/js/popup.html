@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>popup.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco_custom.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="background.html">
+                background.js
+              </a>
+            
+              
+              <a class="source" href="options.html">
+                options.js
+              </a>
+            
+              
+              <a class="source" href="popup.html">
+                popup.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>popup.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Copyright (c) 2012 The Chromium Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file. </p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Version: 1.0<br>Last Up Date: 2013/10/22<br>Author: device302@gmail.com</p>
+<h2>usage</h2>
+<h3>require</h3>
+<ul>
+<li>zepto.js ( <a href="http://zeptojs.com">http://zeptojs.com</a> )</li>
+<li>backgound.js</li>
+</ul>
+<h2>variable declaration</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>localStrage</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> lc = localStorage</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>bg</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  , bg = chrome.extension.getBackgroundPage()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>display area</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  , _loading = <span class="string">'&lt;div style="width: 260px; padding: 58px 0 59px;text-align:center;"&gt;&lt;img src="/img/gif.gif" /&gt;&lt;/div&gt;'</span>
+  , _options = <span class="string">'&lt;div class="notice"&gt;右上の[ option ]ボタンから設定をしてください&lt;/div&gt;'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2>utility functions</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h3>diffStatus() - &#39;-&#39;がついてなかったら&#39;+&#39;をつける</h3>
+<ul>
+<li>@param {Number or String} _val</li>
+<li>@return {String} </li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">diffStatus</span><span class="params">(_v)</span>{</span>
+  <span class="keyword">return</span> _v[<span class="number">0</span>]===<span class="string">'-'</span>?_v:<span class="string">'+'</span>+_v;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h3>displayData() - 表示処理</h3>
+<ul>
+<li>@param {String} _v</li>
+<li>@param {zepto obj} _area</li>
+<li>@param {String} _type</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">displayData</span><span class="params">(_v, _area, _type)</span>{</span>
+  document.getElementById(_area).innerHTML = _v;
+  <span class="keyword">if</span>(_type===<span class="string">'loading'</span>){
+    bg.requestStatus();
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2>main functions</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h3>setStatus() - 表示処理</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">setStatus</span><span class="params">()</span>{</span>
+  <span class="keyword">var</span> _jd = lc.getItem(<span class="string">'data'</span>)
+    , jd = _jd!==<span class="string">''</span>?JSON.parse(_jd):<span class="string">'init'</span>
+    , dl = JSON.parse(lc.getItem(<span class="string">'dispLevel'</span>))
+    , _line = <span class="string">''</span>
+    , i = <span class="number">0</span>;
+
+  <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> dl){
+    <span class="keyword">if</span>(jd!==<span class="string">'init'</span>){
+      <span class="keyword">if</span> (dl.hasOwnProperty(key)) {
+        <span class="keyword">if</span>( jd[key] === <span class="literal">undefined</span> &amp;&amp; dl[key][<span class="number">0</span>] === <span class="number">1</span> ){
+          <span class="keyword">if</span>(i&gt;<span class="number">0</span>){
+            _line += <span class="string">'&lt;/li&gt;&lt;/ul&gt;'</span>;
+          }
+          _line += <span class="string">'&lt;h2 id="'</span>+key+<span class="string">'"&gt;'</span>+ decodeURI(dl[key][<span class="number">1</span>])+<span class="string">'&lt;/h2&gt;'</span>+
+                   <span class="string">'&lt;ul&gt;'</span>;
+          i++;
+        }
+        <span class="keyword">else</span> {
+          _line += <span class="string">'&lt;li&gt;&lt;span id="list_'</span>+key+<span class="string">'"&gt;'</span>+ decodeURI(jd[key][<span class="string">'jpName'</span>]) +<span class="string">'&lt;/span&gt;'</span>+
+                   <span class="string">'&lt;strong&gt;'</span>+ jd[key][<span class="string">'currentValue'</span>] + <span class="string">'&lt;/strong&gt;'</span> +
+                   <span class="string">'&lt;em&gt;('</span>+ diffStatus(jd[key][<span class="string">'diffValue'</span>]) + <span class="string">')&lt;/em&gt;'</span> +
+                   <span class="string">'&lt;span&gt;'</span>+ decodeURI(dl[key][<span class="number">1</span>]) + <span class="string">'&lt;/span&gt;'</span> +
+                   <span class="string">'&lt;/li&gt;'</span>;
+        }
+      }
+      document.getElementById(<span class="string">'update'</span>).innerHTML = lc.getItem(<span class="string">'update'</span>);
+    }
+  }
+  displayData(_line+<span class="string">'&lt;/ul&gt;'</span>, <span class="string">'bengo4'</span>, <span class="string">'data'</span>);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h3>$() - 即時関数</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>$(<span class="keyword">function</span>($){</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h4>イベント設置</h4>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(window).on(<span class="string">'storage'</span>, setStatus);
+  $(<span class="string">'#reload'</span>).on(<span class="string">'click'</span>, <span class="keyword">function</span>(){ displayData(_loading, <span class="string">'bengo4'</span>, <span class="string">'loading'</span>); });
+  $(<span class="string">'#option'</span>).on(<span class="string">'click'</span>, <span class="keyword">function</span>(){ window.open(<span class="string">'/options.html'</span>); });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4>フォームに現在値をセット</h4>
+<p>option画面への誘導</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">if</span>(lc.url === <span class="string">''</span>){
+    displayData(_options, <span class="string">'bengo4'</span>, <span class="string">'option notice'</span>);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>表示処理</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">else</span> {
+    setStatus();
+  }
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

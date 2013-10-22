@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>bengo4.com Status Monitor Options</title>
+  <link rel="stylesheet" type="text/css" href="css/common-min.css">
+  <script src='js/zepto.min.js'></script>
+  <script src='js/options.min.js'></script>
+</head>
+<body id="option">
+  <h1></h1>
+  <h2>読み込みURLは？</h2>
+  <div class="url">
+    <input id="url" value="" type="text" maxlength="100" size="20" /><input type="button" value="set" />
+    <p>Basic認証時は<em>http://<strong>id</strong>:<strong>pw</strong>@www.hoge.com/</em>という形式で入力してください</p>
+  </div>
+
+  <h2>バッジに何を表示しますか？(4桁までしか表示できません)</h2>
+  <ul class="badgeType">
+    <li><input id="numLawyer" name="notification" value="numLawyer" type="radio" /><label for="numLawyer">弁護士登録数</label></li>
+    <li><input id="numBillingLawyer" name="notification" value="numBillingLawyer" type="radio" /><label for="numBillingLawyer">有料弁護士登録数</label></li>
+    <li><input id="numSearchContact" name="notification" value="numSearchContact" type="radio" /><label for="numSearchContact">プロフお問合せ数</label></li>
+    <li><input id="numBillingCitizenCurrentMonth" name="notification" value="numBillingCitizenCurrentMonth" type="radio" /><label for="numBillingCitizenCurrentMonth">有料ユーザー数（今月登録）</label></li>
+    <li><input id="numLawyerAnswerRate" name="notification" value="numLawyerAnswerRate" type="radio" /><label for="numLawyerAnswerRate">弁護士回答率</label></li>
+  </ul>
+  <h2>更新頻度を設定してください <small>( 1~999 分迄ね )</small></h2>
+  <ul class="timer">
+    <li><input id="sec" value="" type="text" maxlength="3" size="3" pattern="^\d{1,3}$" /><label for="sec">分</label><input type="button" value="set"></li>
+  </ul>
+  <footer id="footer">
+    <div></div>
+    <div>powerd by <span id="logo_authense"></span></div>
+  </footer>
+</body>
+</html>

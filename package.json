@@ -1,0 +1,19 @@
+{
+  "name": "b4comStatusMonitor",
+  "description": "Displays the status of the bengo4.com in the toolbar.  Click to see more detailed status in a popup.",
+  "version": "0.6.0",
+  "author": "Yukinori SAEKI",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.1.3",
+    "grunt-contrib-sass": "~0.2.2",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-cssmin": "~0.4.1",
+    "grunt-contrib-uglify": "~0.1.2",
+    "grunt-contrib-connect": "~0.1.2",
+    "grunt-contrib-jshint": "~0.3.0",
+    "grunt-css": "~0.5.4",
+    "grunt-docco": "~0.3.0"
+  }
+}

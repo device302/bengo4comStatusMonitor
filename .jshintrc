@@ -1,0 +1,27 @@
+{
+  "curly": true,
+  "sub": true,
+  "eqeqeq": true,
+  "forin": true,
+  "indent": 2,
+  "latedef": true,
+  "noarg": true,
+  "noempty": true,
+  "nonew": true,
+  "quotmark": "single",
+  "undef": false,
+  "unused": true,
+  "laxcomma": true,
+  "trailing": true,
+  "asi": false,
+  "sub": true,
+  "debug": true,
+  "browser": true,
+  "devel": true,
+  "jquery": true,
+  "node": true,
+  "globals": {
+    "_": false,
+    "Backbone": false
+  }
+}

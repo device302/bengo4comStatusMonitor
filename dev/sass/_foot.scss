@@ -1,0 +1,39 @@
+#popup{
+  footer{
+    margin: 0 3px 4px;
+    font:normal .4em 'Arial',sans-serif;
+    text-align:right;
+    color:#999;
+    display:table;
+    width: 100%;
+    div{
+      padding: 0 5px;
+    }
+  }
+  .footer{
+    font-size: .4em;
+  }
+}
+#option{
+  footer{
+    margin: 35px 0 4px;
+    font:normal .4em 'Arial',sans-serif;
+    color:#999;
+    display:block;
+    border-top: solid 1px #ccc;
+    padding-left: 20px;
+  }
+  #logo_authense{
+    background: url(/img/img.png) left center no-repeat;
+    overflow: hidden;
+    width:43px;
+    height: 16px;
+    display: inline-block;
+    vertical-align:bottom;
+    background-position: -141px center;
+
+  }
+  .footer{
+    font-size: .4em;
+  }
+}

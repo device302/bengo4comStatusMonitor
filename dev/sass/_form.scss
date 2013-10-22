@@ -1,0 +1,54 @@
+
+input[type='radio'] {
+  display: none;
+  &+label::before {
+    padding-right: 20px;
+    content: '';
+    background: no-repeat;
+    font: 16px monospace;
+    background: url(/img/img.png) -351px center no-repeat;
+  }
+  &:checked+label::before {
+    background: url(/img/img.png) -331px center no-repeat;
+  }
+}
+
+input#sec{
+  width: 30px;
+  text-align: center;
+  margin: 3px 5px;
+  border: solid 1px #ccc;
+  -webkit-transition: border 400ms ease-out;
+  &:focus{
+    outline: 0;
+    border: solid 1px #ff8000;
+  }
+}
+input#url{
+  width: 335px;
+  margin: 3px 5px 3px 0;
+  border: solid 1px #ccc;
+  -webkit-transition: border 400ms ease-out;
+  &:focus{
+    outline: 0;
+    border: solid 1px #ff8000;
+  }
+}
+
+input[type="button"]{
+  float:right;
+  border-radius: 0;
+  border: solid 1px #ff8000;
+  background: #ff8000;
+  color: #fff;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  padding: 2px 20px;
+  -webkit-transition: border 200ms ease-out;
+  &:hover{
+    border: 1px solid #d36308;
+    border-bottom: 1px solid #984501;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: #ff8000;
+    color: #fff;
+  }
+}
