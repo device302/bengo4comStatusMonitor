@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>options.min.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco_custom.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="background.min.html">
+                background.min.js
+              </a>
+            
+              
+              <a class="source" href="options.min.html">
+                options.min.js
+              </a>
+            
+              
+              <a class="source" href="popup.min.html">
+                popup.min.js
+              </a>
+            
+              
+              <a class="source" href="zepto.min.html">
+                zepto.min.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>options.min.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">changeMinToMiliSec</span><span class="params">(a)</span>{</span><span class="keyword">return</span> <span class="number">6e4</span>*a}<span class="function"><span class="keyword">function</span> <span class="title">changeMiliSecToMin</span><span class="params">(a)</span>{</span><span class="keyword">return</span> Math.floor(a/<span class="number">6e4</span>)}<span class="function"><span class="keyword">function</span> <span class="title">badgeTypeSave</span><span class="params">()</span>{</span>lc.setItem(<span class="string">"badgeType"</span>,<span class="keyword">this</span>.getAttribute(<span class="string">"value"</span>))}<span class="function"><span class="keyword">function</span> <span class="title">refreshTimeSave</span><span class="params">()</span>{</span><span class="keyword">var</span> a=$(<span class="string">"#sec"</span>).val();a.match(<span class="regexp">/^\d{1,3}$/</span>)?lc.setItem(<span class="string">"timerMs"</span>,changeMinToMiliSec(a)):$(<span class="string">"#sec"</span>).val(changeMiliSecToMin(lc.getItem(<span class="string">"timerMs"</span>)))}<span class="function"><span class="keyword">function</span> <span class="title">urlSave</span><span class="params">()</span>{</span>lc.setItem(<span class="string">"url"</span>,$(<span class="string">"#url"</span>).val())}<span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">(a)</span>{</span>a(<span class="string">"#"</span>+lc.getItem(<span class="string">"badgeType"</span>)).attr(<span class="string">"checked"</span>,<span class="string">"checked"</span>),a(<span class="string">"#sec"</span>).val(changeMiliSecToMin(lc.getItem(<span class="string">"timerMs"</span>))),a(<span class="string">"#url"</span>).val(lc.getItem(<span class="string">"url"</span>)),a(<span class="string">".badgeType"</span>).on(<span class="string">"click"</span>,<span class="string">"li input"</span>,badgeTypeSave),a(<span class="string">".timer"</span>).on(<span class="string">"click"</span>,<span class="string">'li input[type="button"]'</span>,refreshTimeSave),a(<span class="string">".url"</span>).on(<span class="string">"click"</span>,<span class="string">'input[type="button"]'</span>,urlSave)}<span class="keyword">var</span> lc=localStorage;$(<span class="keyword">function</span>(a){main(a)});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

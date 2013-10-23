@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>background.min.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco_custom.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="background.min.html">
+                background.min.js
+              </a>
+            
+              
+              <a class="source" href="options.min.html">
+                options.min.js
+              </a>
+            
+              
+              <a class="source" href="popup.min.html">
+                popup.min.js
+              </a>
+            
+              
+              <a class="source" href="zepto.min.html">
+                zepto.min.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>background.min.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="keyword">function</span> <span class="title">zeroFill</span><span class="params">(a,b)</span>{</span><span class="keyword">var</span> c=<span class="string">""</span>;<span class="keyword">if</span>(<span class="string">"string"</span>==<span class="keyword">typeof</span> b)b=parseInt(b,<span class="number">10</span>);<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"number"</span>!=<span class="keyword">typeof</span> b)<span class="keyword">return</span> a;<span class="keyword">for</span>(<span class="keyword">var</span> d=<span class="number">0</span>;b&gt;d;d++)c+=<span class="string">"0"</span>;<span class="keyword">return</span>(c+a).slice(<span class="string">"-"</span>+b)}<span class="function"><span class="keyword">function</span> <span class="title">dateFormat</span><span class="params">(a)</span>{</span><span class="keyword">var</span> b=<span class="keyword">new</span> Date(a),c=b.getFullYear(),d=zeroFill(b.getMonth()+<span class="number">1</span>,<span class="number">2</span>),e=zeroFill(b.getDate(),<span class="number">2</span>),f=zeroFill(b.getHours(),<span class="number">2</span>),g=zeroFill(b.getMinutes(),<span class="number">2</span>),h=zeroFill(b.getSeconds(),<span class="number">2</span>);<span class="keyword">return</span> c+<span class="string">"/"</span>+d+<span class="string">"/"</span>+e+<span class="string">" "</span>+f+<span class="string">":"</span>+g+<span class="string">":"</span>+h}<span class="function"><span class="keyword">function</span> <span class="title">updateBadge</span><span class="params">(a)</span>{</span><span class="keyword">var</span> b,c,d=lc.getItem(<span class="string">"data"</span>),e=lc.getItem(<span class="string">"badgeType"</span>);<span class="keyword">if</span>(<span class="string">""</span>!==d){b=JSON.parse(d);<span class="keyword">for</span>(<span class="keyword">var</span> f <span class="keyword">in</span> b)<span class="keyword">if</span>(b.hasOwnProperty(f)&amp;&amp;f===e){c=b[f].currentValue.split(<span class="string">","</span>).join(<span class="string">""</span>);<span class="keyword">break</span>}}<span class="keyword">else</span> c=a?a:<span class="string">"---"</span>;chrome.browserAction.setBadgeBackgroundColor({color:<span class="string">"#fe6000"</span>}),chrome.browserAction.setBadgeText({text:c})}<span class="function"><span class="keyword">function</span> <span class="title">updateStatus</span><span class="params">(a)</span>{</span><span class="keyword">var</span> b=<span class="keyword">new</span> Date;<span class="string">"offline"</span>!==a?(lc.setItem(<span class="string">"data"</span>,JSON.stringify(a)),lc.setItem(<span class="string">"update"</span>,dateFormat(b)),updateBadge()):(lc.setItem(<span class="string">"status"</span>,<span class="string">"offline:"</span>+dateFormat(b)),updateBadge(<span class="string">"offline"</span>))}<span class="function"><span class="keyword">function</span> <span class="title">requestURL</span><span class="params">(a,b)</span>{</span>$.ajax({type:<span class="string">"GET"</span>,url:a,dataType:<span class="string">"json"</span>,timeout:<span class="number">300</span>,success:<span class="keyword">function</span>(a){b(a)},error:<span class="keyword">function</span>(){b(<span class="string">"offline"</span>)}})}<span class="function"><span class="keyword">function</span> <span class="title">requestStatus</span><span class="params">()</span>{</span>requestURL(lc.getItem(<span class="string">"url"</span>),updateStatus),timerID&amp;&amp;clearTimeout(timerID),timerID=setTimeout(requestStatus,lc.getItem(<span class="string">"timerMs"</span>))}<span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span>{</span><span class="keyword">if</span>(<span class="string">""</span>===lc.getItem(<span class="string">"update"</span>)||<span class="literal">null</span>===lc.getItem(<span class="string">"update"</span>))<span class="keyword">for</span>(<span class="keyword">var</span> a <span class="keyword">in</span> defaultProps)defaultProps.hasOwnProperty(a)&amp;&amp;lc.setItem(a,defaultProps[a]);<span class="string">"installed"</span>===lc.getItem(<span class="string">"status"</span>)&amp;&amp;(<span class="string">""</span>===lc.getItem(<span class="string">"url"</span>)?(updateStatus(<span class="string">"offline"</span>),updateBadge(<span class="string">"urlx"</span>)):requestStatus()),$(window).on(<span class="string">"storage"</span>,requestStatus)}<span class="keyword">var</span> lc=localStorage,timerID,defaultProps={url:<span class="string">""</span>,badgeType:<span class="string">"numLawyerAnswerRate"</span>,timerMs:<span class="number">3e5</span>,update:<span class="string">""</span>,status:<span class="string">"installed"</span>,data:<span class="string">""</span>,dispLevel:<span class="string">'{"titleLaw": [1, "%e5%bc%81%e8%ad%b7%e5%a3%ab%e9%96%a2%e9%80%a3%e3%82%b9%e3%83%86%e3%83%bc%e3%82%bf%e3%82%b9"], "numLawyer": [2, "%e4%ba%ba"], "numBillingLawyer":  [2, "%e4%ba%ba"], "numSearchContact":  [2, "%e4%bb%b6"], "titleUser": [1, "%e4%b8%80%e8%88%ac%e3%83%a6%e3%83%bc%e3%82%b6%e3%83%bc%e9%96%a2%e9%80%a3%e3%82%b9%e3%83%86%e3%83%bc%e3%82%bf%e3%82%b9"], "numCitizen":  [2, "%e4%ba%ba"], "numBillingCitizen":  [2, "%e4%ba%ba"], "numBillingCitizenCurrentMonth":  [3, "%e4%ba%ba"], "numUnBillingCitizenCurrentMonth":  [3, "%e4%ba%ba"], "titleMinpo": [1, "%e3%81%bf%e3%82%93%e6%b3%95%e9%96%a2%e9%80%a3%e3%82%b9%e3%83%86%e3%83%bc%e3%82%bf%e3%82%b9"], "numBbsQuestion":  [2, "%e4%bb%b6"], "numBbsAnswer":  [2, "%e4%bb%b6"], "numLawyerAnswerRate":  [2, "%25"]}'</span>};$(<span class="keyword">function</span>(a){init(a)});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -22,7 +22,7 @@ var lc = localStorage;
 // - @param {Number} _val 分
 // - @return {String} ミリ秒
 function changeMinToMiliSec (_val){
-  console.log(_val);
+  
   return _val * 60000;
 }
 // ### changeMiliSecToMin() - ミリ秒→分変換
